@@ -4,143 +4,802 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Creative Flywheel</title>
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600&f[]=satoshi@300,400,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+
 :root{
-  --bg:#F9F9F7;--white:#fff;--ink:#0E0E0C;--ink2:#7A7A76;--ink3:#C4C4C0;
-  --rose:#E8412A;--rose-bg:rgba(232,65,42,0.06);--rose-bd:rgba(232,65,42,0.15);
-  --green:#16A34A;--border:#EAEAE6;--border2:#D4D4D0;--r:16px;
+  --paper:#F5F3EE;
+  --paper2:#EDEAE3;
+  --white:#FFFFFF;
+  --ink:#141210;
+  --ink2:#6E6A63;
+  --ink3:#B0AC A4;
+  --ink3:#B0ACA4;
+  --ink4:#D8D4CC;
+  --fire:#D94F2B;
+  --fire-dim:rgba(217,79,43,0.08);
+  --fire-bd:rgba(217,79,43,0.18);
+  --emerald:#1A7F5A;
+  --emerald-dim:rgba(26,127,90,0.08);
+  --emerald-bd:rgba(26,127,90,0.2);
+  --border:#E4E0D8;
+  --border2:#CCC8BF;
+  --shadow:0 1px 3px rgba(20,18,16,0.06),0 4px 16px rgba(20,18,16,0.06);
+  --shadow-lg:0 8px 40px rgba(20,18,16,0.10),0 2px 8px rgba(20,18,16,0.05);
+  --r:14px;--r-sm:9px;
 }
-html,body{height:100%}
-body{font-family:'Satoshi',-apple-system,sans-serif;background:var(--bg);color:var(--ink);display:flex;flex-direction:column;height:100vh;overflow:hidden;-webkit-font-smoothing:antialiased;}
 
-/* HEADER */
-header{flex-shrink:0;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:56px;background:var(--white);border-bottom:1px solid var(--border);}
-.logo{display:flex;align-items:center;gap:10px;}
-.lmark{width:28px;height:28px;background:var(--ink);border-radius:8px;display:flex;align-items:center;justify-content:center;}
-.lmark svg{width:15px;height:15px;}
-.lname{font-family:'Clash Display',sans-serif;font-size:14px;font-weight:500;letter-spacing:-0.2px;}
-.hstatus{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:500;color:var(--ink3);}
-.hdot{width:6px;height:6px;border-radius:50%;background:#22C55E;}
+html,body{height:100%;overflow:hidden;}
 
-/* BODY */
-.body{flex:1;overflow-y:auto;display:flex;flex-direction:column;}
+body{
+  font-family:'Geist',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  display:flex;flex-direction:column;
+  height:100vh;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
 
-/* EMPTY */
-.empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center;gap:20px;}
-.etitle{font-family:'Clash Display',sans-serif;font-size:clamp(30px,5vw,46px);font-weight:500;line-height:1.05;letter-spacing:-2px;}
-.etitle em{font-style:normal;color:var(--rose);}
-.esub{font-size:14px;color:var(--ink2);line-height:1.7;max-width:340px;}
+/* ─── HEADER ─── */
+header{
+  flex-shrink:0;
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  padding:0 32px;
+  height:58px;
+  background:rgba(245,243,238,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  position:relative;z-index:100;
+}
 
-/* MODES */
-.modes-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink3);margin-bottom:2px;}
-.modes{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:560px;}
-.mode{
-  display:flex;align-items:center;gap:7px;
-  padding:9px 16px;
+.logo{
+  display:flex;align-items:center;gap:10px;
+}
+
+.logo-mark{
+  width:30px;height:30px;
+  background:var(--ink);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.logo-mark::after{
+  content:'';position:absolute;inset:0;
+  background:conic-gradient(from 180deg,transparent,rgba(255,255,255,0.07),transparent);
+  animation:lspin 8s linear infinite;
+}
+@keyframes lspin{to{transform:rotate(360deg)}}
+.logo-mark svg{width:16px;height:16px;position:relative;z-index:1;}
+
+.logo-name{
+  font-family:'Geist',sans-serif;
+  font-size:14px;font-weight:600;
+  color:var(--ink);letter-spacing:-0.3px;
+}
+
+/* center tabs */
+.tabs{
+  display:flex;align-items:center;gap:2px;
+  background:var(--paper2);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:3px;
+}
+
+.tab{
+  display:flex;align-items:center;gap:6px;
+  padding:6px 16px;border-radius:7px;
+  font-size:12.5px;font-weight:500;
+  color:var(--ink2);
+  cursor:pointer;transition:all 0.18s;
+  border:none;background:none;
+  font-family:'Geist',sans-serif;
+  white-space:nowrap;
+}
+.tab:hover{color:var(--ink);}
+.tab.active{
+  background:var(--white);
+  color:var(--ink);
+  box-shadow:0 1px 4px rgba(20,18,16,0.10);
+  font-weight:600;
+}
+.tab-icon{font-size:14px;}
+
+.header-right{
+  display:flex;justify-content:flex-end;align-items:center;gap:8px;
+}
+.live-chip{
+  display:flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:500;color:var(--ink3);
+  padding:5px 11px;
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:20px;
+}
+.live-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:#22C55E;
+  box-shadow:0 0 0 2px rgba(34,197,94,0.2);
+  animation:livepulse 2.5s ease-in-out infinite;
+}
+@keyframes livepulse{0%,100%{box-shadow:0 0 0 2px rgba(34,197,94,0.15)}50%{box-shadow:0 0 0 5px rgba(34,197,94,0.06)}}
+
+/* ─── PANELS ─── */
+.panel{display:none;flex:1;overflow:hidden;flex-direction:column;min-height:0;}
+.panel.active{display:flex;}
+
+/* ─── SCROLLABLE INNER ─── */
+.scroll{flex:1;overflow-y:auto;display:flex;flex-direction:column;}
+.scroll::-webkit-scrollbar{width:4px;}
+.scroll::-webkit-scrollbar-track{background:transparent;}
+.scroll::-webkit-scrollbar-thumb{background:var(--ink4);border-radius:4px;}
+
+/* ─── OFFER PANEL ─── */
+.offer-layout{
+  max-width:660px;width:100%;
+  margin:0 auto;padding:36px 28px 48px;
+}
+
+.section-eyebrow{
+  font-family:'Geist Mono',monospace;
+  font-size:9px;font-weight:500;
+  letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:10px;
+}
+
+.offer-title{
+  
+  font-size:clamp(28px,4vw,40px);
+  font-weight:700;line-height:1.03;
+  letter-spacing:-2px;color:var(--ink);
+  margin-bottom:8px;
+}
+.offer-title em{font-style:normal;color:var(--fire);}
+
+.offer-sub{
+  font-size:14px;font-weight:300;
+  color:var(--ink2);line-height:1.7;
+  margin-bottom:32px;max-width:440px;
+}
+
+/* Form */
+.form-grid{display:flex;flex-direction:column;gap:14px;}
+.field-group{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+
+.field{display:flex;flex-direction:column;gap:5px;}
+.field label{
+  font-family:'Geist Mono',monospace;
+  font-size:9px;font-weight:500;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--ink3);
+}
+.field input,.field textarea,.field select{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r-sm);
+  padding:10px 14px;
+  font-size:13.5px;font-weight:400;
+  font-family:'Geist',sans-serif;
+  color:var(--ink);
+  outline:none;
+  transition:border-color 0.15s,box-shadow 0.15s;
+  width:100%;resize:none;
+  appearance:none;-webkit-appearance:none;
+}
+.field input:focus,.field textarea:focus,.field select:focus{
+  border-color:var(--ink);
+  box-shadow:0 0 0 3px rgba(20,18,16,0.06);
+}
+.field input::placeholder,.field textarea::placeholder{color:var(--ink4);}
+.field textarea{min-height:90px;line-height:1.6;}
+.field select{
+  background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23B0ACA4' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 14px center;
+  padding-right:36px;cursor:pointer;
+}
+.field select option{background:var(--white);color:var(--ink);}
+
+.gen-btn{
+  width:100%;
+  background:var(--ink);border:none;
+  border-radius:var(--r-sm);
+  padding:14px 24px;
+  font-family:'Geist',sans-serif;
+  font-size:14px;font-weight:600;
+  color:var(--white);
+  cursor:pointer;
+  transition:all 0.2s cubic-bezier(0.34,1.2,0.64,1);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-top:6px;
+  letter-spacing:-0.2px;
+}
+.gen-btn:hover{background:var(--fire);transform:translateY(-1px);box-shadow:0 4px 16px rgba(217,79,43,0.25);}
+.gen-btn:disabled{opacity:0.3;cursor:not-allowed;transform:none;box-shadow:none;}
+
+/* Offer results */
+.offer-results-layout{
+  max-width:660px;width:100%;
+  margin:0 auto;padding:32px 28px 48px;
+}
+
+.results-header{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  margin-bottom:24px;gap:16px;
+}
+.results-header-left{}
+.results-title{
+  
+  font-size:26px;font-weight:700;
+  letter-spacing:-1px;color:var(--ink);
+  margin-bottom:3px;
+}
+.results-sub{font-size:12px;color:var(--ink3);}
+
+.back-btn{
+  display:flex;align-items:center;gap:5px;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:7px 13px;
+  font-size:12px;font-weight:500;color:var(--ink2);
+  cursor:pointer;transition:all 0.12s;font-family:'Geist',sans-serif;
+  white-space:nowrap;flex-shrink:0;
+}
+.back-btn:hover{border-color:var(--border2);color:var(--ink);}
+
+/* Offer card */
+.offer-card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  overflow:hidden;
+  margin-bottom:14px;
+  box-shadow:var(--shadow);
+  transition:box-shadow 0.2s,transform 0.2s;
+}
+.offer-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-1px);}
+
+.offer-card-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:13px 20px;
+  background:var(--paper);
+  border-bottom:1px solid var(--border);
+}
+
+.offer-rank-row{display:flex;align-items:center;gap:8px;}
+
+.rank-pill{
+  font-family:'Geist Mono',monospace;
+  font-size:9px;font-weight:500;
+  letter-spacing:1.5px;text-transform:uppercase;
+  padding:4px 10px;border-radius:20px;
+}
+.rank-1{background:rgba(180,130,20,0.1);color:#92600A;border:1px solid rgba(180,130,20,0.2);}
+.rank-2{background:var(--paper2);color:var(--ink2);border:1px solid var(--border);}
+.rank-3{background:var(--paper2);color:var(--ink2);border:1px solid var(--border);}
+
+.offer-type-pill{
+  font-size:10px;font-weight:600;
+  letter-spacing:0.5px;text-transform:uppercase;
+  padding:3px 10px;border-radius:20px;
+  background:var(--fire-dim);border:1px solid var(--fire-bd);color:var(--fire);
+}
+
+.offer-card-body{
+  padding:22px 20px;
+  display:flex;flex-direction:column;gap:18px;
+}
+
+.offer-headline-big{
+  
+  font-size:22px;font-weight:700;
+  line-height:1.1;letter-spacing:-0.8px;
+  color:var(--ink);
+}
+.offer-price-line{
+  font-size:13px;font-weight:600;
+  color:var(--fire);margin-top:3px;
+  letter-spacing:-0.1px;
+}
+
+.offer-row{display:flex;flex-direction:column;gap:4px;}
+.offer-lbl{
+  font-family:'Geist Mono',monospace;
+  font-size:8.5px;font-weight:500;
+  letter-spacing:2px;text-transform:uppercase;color:var(--ink3);
+}
+.offer-val{font-size:13px;color:var(--ink2);line-height:1.7;}
+
+.hooks-row{display:flex;flex-wrap:wrap;gap:6px;}
+.hook-chip{
+  font-size:12px;font-weight:400;
+  padding:5px 12px;border-radius:20px;
+  background:var(--paper);border:1px solid var(--border);
+  color:var(--ink2);
+}
+
+.why-box{
+  display:flex;gap:12px;
+  padding:14px 16px;
+  background:var(--emerald-dim);border:1px solid var(--emerald-bd);
+  border-radius:10px;
+}
+.why-icon{font-size:14px;flex-shrink:0;margin-top:1px;}
+.why-text{font-size:12.5px;color:var(--ink2);line-height:1.7;font-style:italic;}
+
+.watch-box{
+  font-size:12px;color:var(--ink3);
+  font-style:italic;line-height:1.6;
+  padding-top:14px;border-top:1px solid var(--border);
+}
+
+.offer-card-footer{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:12px 20px;
+  border-top:1px solid var(--border);
+  background:var(--paper);
+  gap:8px;
+}
+
+.btn{
+  display:flex;align-items:center;gap:5px;
+  border-radius:7px;padding:6px 13px;
+  font-size:11.5px;font-weight:600;
+  cursor:pointer;transition:all 0.12s;
+  font-family:'Geist',sans-serif;
+  border:1px solid transparent;
+}
+.btn-ghost{background:var(--white);border-color:var(--border);color:var(--ink2);}
+.btn-ghost:hover{border-color:var(--border2);color:var(--ink);}
+.btn-dark{background:var(--ink);color:var(--white);border-color:var(--ink);}
+.btn-dark:hover{background:var(--fire);}
+.btn.ok{color:var(--emerald);border-color:rgba(26,127,90,0.25);background:var(--emerald-dim);}
+
+/* ─── CREATIVE PANEL ─── */
+.creative-empty{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:40px 28px;text-align:center;gap:20px;
+}
+
+.ce-eyebrow{
+  font-family:'Geist Mono',monospace;
+  font-size:9px;font-weight:500;letter-spacing:2.5px;
+  text-transform:uppercase;color:var(--ink3);
+}
+
+.ce-title{
+  
+  font-size:clamp(32px,5vw,52px);
+  font-weight:700;line-height:1.02;
+  letter-spacing:-2.5px;color:var(--ink);
+}
+.ce-title em{font-style:normal;color:var(--fire);}
+
+.ce-sub{font-size:14px;font-weight:300;color:var(--ink2);line-height:1.7;max-width:360px;}
+
+/* Mode pills on empty state */
+.mode-pills-wrap{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;max-width:500px;}
+.mode-pill-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 16px;
   background:var(--white);border:1.5px solid var(--border);
-  border-radius:24px;cursor:pointer;
-  font-family:'Satoshi',sans-serif;font-size:13px;font-weight:500;color:var(--ink2);
-  transition:all 0.15s;
+  border-radius:24px;
+  font-size:12.5px;font-weight:500;color:var(--ink2);
+  cursor:pointer;transition:all 0.15s;
+  font-family:'Geist',sans-serif;
 }
-.mode:hover{border-color:var(--border2);color:var(--ink);}
-.mode.active{background:var(--ink);border-color:var(--ink);color:var(--white);}
-.mode-icon{font-size:15px;line-height:1;}
+.mode-pill-btn:hover{border-color:var(--border2);color:var(--ink);}
+.mode-pill-btn.on{background:var(--ink);border-color:var(--ink);color:var(--white);}
+.mode-icon{font-size:14px;}
 
-/* MSGS */
-.msgs{max-width:720px;width:100%;margin:0 auto;padding:28px 28px 12px;display:flex;flex-direction:column;gap:24px;}
-.msg{display:flex;flex-direction:column;gap:6px;animation:up 0.22s ease both;}
-@keyframes up{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
-.msg.user{align-items:flex-end;}.msg.ai{align-items:flex-start;}
-.who{font-size:10px;font-weight:600;letter-spacing:0.8px;text-transform:uppercase;color:var(--ink3);padding:0 3px;}
-.ubub{max-width:68%;background:var(--ink);color:#F9F9F7;border-radius:18px;border-bottom-right-radius:4px;padding:12px 18px;font-size:14px;line-height:1.6;}
-.abub{background:var(--white);border:1px solid var(--border);border-radius:18px;border-bottom-left-radius:4px;padding:20px 22px;width:100%;box-shadow:0 2px 12px rgba(14,14,12,0.06);font-size:14px;line-height:1.7;color:var(--ink2);}
+.mode-desc-txt{
+  font-size:12.5px;font-weight:300;color:var(--ink3);
+  max-width:320px;line-height:1.6;
+  min-height:34px;transition:opacity 0.18s;
+}
 
-/* THINKING */
-.think{display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--white);border:1px solid var(--border);border-radius:14px;border-bottom-left-radius:4px;font-size:12px;font-weight:500;color:var(--ink3);width:fit-content;}
-.dots{display:flex;gap:4px;}
-.dots span{width:4px;height:4px;border-radius:50%;background:var(--rose);opacity:0.3;animation:d 1.2s ease-in-out infinite;}
+/* Chat messages */
+.msgs-area{
+  flex:1;overflow-y:auto;display:flex;flex-direction:column;min-height:0;
+}
+.msgs-area::-webkit-scrollbar{width:4px;}
+.msgs-area::-webkit-scrollbar-thumb{background:var(--ink4);border-radius:4px;}
+
+.msgs-inner{
+  max-width:720px;width:100%;margin:0 auto;
+  padding:24px 28px 12px;
+  display:flex;flex-direction:column;gap:22px;
+}
+
+.msg{display:flex;flex-direction:column;gap:6px;animation:msgup 0.22s ease both;}
+@keyframes msgup{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+.msg.user{align-items:flex-end;}
+.msg.ai{align-items:flex-start;}
+
+.msg-who{
+  font-family:'Geist Mono',monospace;
+  font-size:9px;font-weight:500;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--ink3);padding:0 3px;
+}
+
+.user-bubble{
+  max-width:68%;background:var(--ink);color:#F5F3EE;
+  border-radius:16px;border-bottom-right-radius:4px;
+  padding:12px 18px;font-size:14px;font-weight:400;line-height:1.6;
+}
+
+.ai-bubble{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:16px;border-bottom-left-radius:4px;
+  padding:20px 22px;width:100%;
+  box-shadow:var(--shadow);
+  font-size:14px;line-height:1.7;color:var(--ink2);
+}
+
+/* Thinking */
+.thinking{
+  display:flex;align-items:center;gap:10px;
+  padding:11px 16px;background:var(--white);border:1px solid var(--border);
+  border-radius:14px;border-bottom-left-radius:4px;
+  font-size:11.5px;font-weight:500;color:var(--ink3);
+  width:fit-content;font-family:'Geist',sans-serif;
+}
+.dots{display:flex;gap:4px;align-items:center;}
+.dots span{width:4px;height:4px;border-radius:50%;background:var(--fire);opacity:0.3;animation:td 1.2s ease-in-out infinite;}
 .dots span:nth-child(2){animation-delay:0.15s;}.dots span:nth-child(3){animation-delay:0.3s;}
-@keyframes d{0%,80%,100%{opacity:0.2;transform:scale(0.8)}40%{opacity:1;transform:scale(1)}}
+@keyframes td{0%,80%,100%{opacity:0.2;transform:scale(0.8)}40%{opacity:1;transform:scale(1)}}
 
-/* MODE PILL shown in chat */
-.mode-pill{display:inline-flex;align-items:center;gap:5px;background:var(--rose-bg);border:1px solid var(--rose-bd);border-radius:12px;padding:3px 10px;font-size:10px;font-weight:700;color:var(--rose);letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;}
+/* Offer context banner */
+.offer-banner{
+  max-width:720px;width:100%;margin:0 auto;
+  padding:12px 28px 0;
+}
+.offer-banner-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--emerald-dim);border:1px solid var(--emerald-bd);
+  border-radius:9px;padding:9px 14px;
+}
+.offer-banner-txt{font-size:12px;font-weight:500;color:var(--emerald);}
+.offer-banner-clear{background:none;border:none;font-size:11px;color:var(--ink3);cursor:pointer;font-family:'Geist',sans-serif;}
+.offer-banner-clear:hover{color:var(--ink);}
 
-/* CARDS */
+/* Creative cards */
 .cards-out{display:flex;flex-direction:column;}
-.out-lead{font-size:13.5px;color:var(--ink2);line-height:1.7;margin-bottom:16px;font-style:italic;}
+.cards-lead{font-size:13.5px;color:var(--ink2);line-height:1.7;margin-bottom:16px;font-style:italic;}
 
-.ccard{background:var(--bg);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:10px;transition:box-shadow 0.15s;}
-.ccard:hover{box-shadow:0 4px 20px rgba(14,14,12,0.08);}
+.ccard{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r);overflow:hidden;
+  margin-bottom:12px;
+  box-shadow:var(--shadow);
+  transition:box-shadow 0.18s,transform 0.18s;
+}
+.ccard:hover{box-shadow:var(--shadow-lg);transform:translateY(-1px);}
 
-.ctop{display:flex;align-items:center;justify-content:space-between;padding:11px 18px;border-bottom:1px solid var(--border);}
-.ctags{display:flex;gap:6px;}
-.tag{font-size:10px;font-weight:600;letter-spacing:0.6px;text-transform:uppercase;padding:3px 10px;border-radius:20px;background:var(--white);border:1px solid var(--border);color:var(--ink2);}
-.tag.r{background:var(--rose-bg);border-color:var(--rose-bd);color:var(--rose);}
-.cnum{font-size:11px;color:var(--ink3);}
+.ccard-top{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:11px 18px;background:var(--paper);
+  border-bottom:1px solid var(--border);
+}
+.ctags{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.ctag{
+  font-family:'Geist Mono',monospace;
+  font-size:9px;font-weight:500;letter-spacing:1px;text-transform:uppercase;
+  padding:3px 9px;border-radius:20px;
+  background:var(--white);border:1px solid var(--border);color:var(--ink2);
+}
+.ctag.accent{background:var(--fire-dim);border-color:var(--fire-bd);color:var(--fire);}
+.ccard-num{
+  font-family:'Geist Mono',monospace;
+  font-size:10px;color:var(--ink4);letter-spacing:1px;
+}
 
-/* IMAGE */
-.izone{width:100%;aspect-ratio:1/1;background:var(--border);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;border-bottom:1px solid var(--border);}
-.izone.story{aspect-ratio:9/16;max-height:400px;}
-.izone img{width:100%;height:100%;object-fit:cover;display:block;animation:fi 0.4s ease;}
-@keyframes fi{from{opacity:0}to{opacity:1}}
-.igen{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--ink3);}
-.ibar{width:100px;height:2px;background:rgba(14,14,12,0.08);border-radius:2px;overflow:hidden;}
-.ibar-f{height:100%;background:var(--rose);border-radius:2px;animation:ib 2s ease-in-out infinite;}
-@keyframes ib{0%{width:0}70%{width:88%}100%{width:88%;opacity:0.3}}
-.igen span{font-size:10px;font-weight:500;letter-spacing:0.3px;}
-.iacts{position:absolute;bottom:10px;right:10px;display:flex;gap:6px;opacity:0;transition:opacity 0.15s;}
+/* Image zone */
+.izone{
+  width:100%;aspect-ratio:1/1;
+  background:var(--paper2);
+  position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  border-bottom:1px solid var(--border);
+}
+.izone.story{aspect-ratio:9/16;max-height:420px;}
+.izone img{width:100%;height:100%;object-fit:cover;display:block;animation:fadeimg 0.4s ease;}
+@keyframes fadeimg{from{opacity:0}to{opacity:1}}
+
+.igen{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  color:var(--ink3);
+}
+.ibar{width:90px;height:2px;background:var(--border);border-radius:2px;overflow:hidden;}
+.ibar-f{height:100%;background:var(--fire);border-radius:2px;animation:ibf 2s ease-in-out infinite;}
+@keyframes ibf{0%{width:0}70%{width:88%}100%{width:88%;opacity:0.3}}
+.igen-txt{font-size:10px;font-weight:500;letter-spacing:0.3px;font-family:'Geist Mono',monospace;}
+
+.iacts{position:absolute;bottom:10px;right:10px;display:flex;gap:5px;opacity:0;transition:opacity 0.15s;}
 .izone:hover .iacts{opacity:1;}
-.iact{display:flex;align-items:center;gap:4px;background:rgba(14,14,12,0.72);backdrop-filter:blur(8px);border:none;border-radius:7px;padding:5px 10px;font-size:10px;font-weight:600;color:white;cursor:pointer;font-family:'Satoshi',sans-serif;transition:background 0.12s;}
-.iact:hover{background:rgba(14,14,12,0.9);}
-.ierr{font-size:11px;color:var(--ink3);display:flex;flex-direction:column;align-items:center;gap:6px;}
-.ierr button{background:none;border:none;color:var(--rose);cursor:pointer;font-size:11px;font-weight:600;font-family:inherit;}
+.iact{
+  display:flex;align-items:center;gap:4px;
+  background:rgba(20,18,16,0.75);backdrop-filter:blur(10px);
+  border:none;border-radius:6px;padding:5px 10px;
+  font-size:10px;font-weight:600;color:white;
+  cursor:pointer;font-family:'Geist',sans-serif;
+  transition:background 0.12s;letter-spacing:0.2px;
+}
+.iact:hover{background:rgba(20,18,16,0.92);}
 
-/* CARD BODY */
-.cbody{padding:18px;display:flex;flex-direction:column;gap:14px;}
-.crow{display:flex;flex-direction:column;gap:4px;}
-.clbl{font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--ink3);}
-.chook{font-family:'Clash Display',sans-serif;font-size:22px;font-weight:500;line-height:1.1;letter-spacing:-0.8px;color:var(--ink);}
-.csub{font-size:13px;font-weight:500;color:var(--rose);margin-top:1px;}
-.ccopy{font-size:13px;color:var(--ink2);line-height:1.8;}
-.ccta{display:inline-flex;align-items:center;gap:8px;background:var(--ink);border-radius:10px;padding:10px 16px;width:fit-content;}
-.ccta-t{font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:#F9F9F7;}
-.cwhy{font-size:11.5px;color:var(--ink3);line-height:1.65;font-style:italic;padding-top:12px;border-top:1px solid var(--border);}
+.ierr{
+  display:flex;flex-direction:column;align-items:center;gap:7px;
+  color:var(--ink3);
+}
+.ierr-btn{background:none;border:none;color:var(--fire);cursor:pointer;font-size:11px;font-weight:600;font-family:'Geist',sans-serif;}
 
-.cfoot{display:flex;justify-content:flex-end;padding:10px 18px;border-top:1px solid var(--border);}
-.cbtn{display:flex;align-items:center;gap:5px;background:var(--white);border:1px solid var(--border);border-radius:7px;padding:5px 12px;font-size:11px;font-weight:600;color:var(--ink2);cursor:pointer;transition:all 0.12s;font-family:'Satoshi',sans-serif;}
-.cbtn:hover{border-color:var(--border2);color:var(--ink);}
-.cbtn.ok{color:var(--green);border-color:rgba(22,163,74,0.25);}
-.hint{font-size:11px;color:var(--ink3);text-align:center;padding:4px 0 8px;letter-spacing:0.2px;}
+/* Card body */
+.ccard-body{padding:18px 18px;display:flex;flex-direction:column;gap:15px;}
+.c-row{display:flex;flex-direction:column;gap:4px;}
+.c-lbl{
+  font-family:'Geist Mono',monospace;
+  font-size:8.5px;font-weight:500;
+  letter-spacing:2px;text-transform:uppercase;color:var(--ink3);
+}
+.c-hook{
+  
+  font-size:22px;font-weight:700;
+  line-height:1.08;letter-spacing:-0.8px;color:var(--ink);
+}
+.c-sub{font-size:13px;font-weight:500;color:var(--fire);margin-top:2px;}
+.c-copy{font-size:13px;font-weight:400;color:var(--ink2);line-height:1.8;}
+.c-cta{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--ink);border-radius:10px;
+  padding:10px 16px;width:fit-content;
+}
+.c-cta-txt{font-size:11px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:#F5F3EE;}
+.c-why{
+  font-size:12px;color:var(--ink3);
+  line-height:1.65;font-style:italic;
+  padding-top:12px;border-top:1px solid var(--border);
+}
 
-/* INPUT */
-.input-wrap{flex-shrink:0;max-width:720px;width:100%;margin:0 auto;padding:10px 28px 18px;}
+.ccard-footer{
+  display:flex;justify-content:flex-end;
+  padding:10px 18px;
+  border-top:1px solid var(--border);
+  background:var(--paper);
+}
 
-/* MODE BAR inside input area */
-.mode-bar{display:flex;gap:6px;margin-bottom:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
+.c-copy-btn{
+  display:flex;align-items:center;gap:5px;
+  background:var(--white);border:1px solid var(--border);
+  border-radius:7px;padding:5px 12px;
+  font-size:11px;font-weight:600;color:var(--ink2);
+  cursor:pointer;transition:all 0.12s;font-family:'Geist',sans-serif;
+}
+.c-copy-btn:hover{border-color:var(--border2);color:var(--ink);}
+.c-copy-btn.ok{color:var(--emerald);border-color:rgba(26,127,90,0.25);background:var(--emerald-dim);}
+
+.cards-hint{font-size:11px;color:var(--ink3);text-align:center;padding:4px 0 8px;letter-spacing:0.3px;}
+
+/* ─── SELECTED OFFER CARD ─── */
+.selected-offer-card{
+  max-width:720px;width:100%;margin:0 auto;
+  padding:14px 28px 0;
+}
+.soc-inner{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  padding:14px 18px;
+  display:flex;align-items:center;gap:16px;
+  box-shadow:var(--shadow);
+}
+.soc-left{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
+.soc-eyebrow{
+  font-family:'Geist Mono',monospace;
+  font-size:8.5px;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+  color:var(--emerald);display:flex;align-items:center;gap:5px;
+}
+.soc-eyebrow::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--emerald);flex-shrink:0;}
+.soc-headline{font-size:14px;font-weight:700;color:var(--ink);letter-spacing:-0.3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.soc-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.soc-chip{
+  font-size:10px;font-weight:500;color:var(--ink2);
+  display:flex;align-items:center;gap:4px;
+}
+.soc-chip-dot{width:3px;height:3px;border-radius:50%;background:var(--ink4);}
+.soc-right{display:flex;align-items:center;gap:8px;flex-shrink:0;}
+.soc-change{
+  font-size:11px;font-weight:500;color:var(--ink3);
+  background:none;border:none;cursor:pointer;
+  font-family:'Geist',sans-serif;
+  text-decoration:underline;text-underline-offset:2px;
+}
+.soc-change:hover{color:var(--ink);}
+.soc-cta-pill{
+  font-size:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;
+  background:var(--ink);color:var(--white);
+  border-radius:20px;padding:4px 10px;
+}
+
+/* ─── CREATIVE LIBRARY ─── */
+.library-section{
+  max-width:720px;width:100%;margin:0 auto;
+  padding:0 28px 40px;
+}
+.lib-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:14px;
+  padding-top:28px;
+  border-top:1px solid var(--border);
+}
+.lib-title{
+  display:flex;align-items:center;gap:8px;
+  font-size:13px;font-weight:700;color:var(--ink);letter-spacing:-0.2px;
+}
+.lib-count{
+  font-family:'Geist Mono',monospace;
+  font-size:9px;font-weight:500;
+  background:var(--paper2);border:1px solid var(--border);
+  border-radius:20px;padding:2px 8px;color:var(--ink3);letter-spacing:0.5px;
+}
+.lib-empty{
+  text-align:center;padding:28px 20px;
+  background:var(--white);border:1px dashed var(--border2);
+  border-radius:var(--r);
+  font-size:12.5px;color:var(--ink3);line-height:1.6;
+}
+.lib-empty strong{color:var(--ink2);font-weight:600;}
+
+.lib-grid{display:flex;flex-direction:column;gap:8px;}
+
+.lib-item{
+  background:var(--white);border:1px solid var(--border);
+  border-radius:var(--r-sm);padding:13px 16px;
+  display:flex;align-items:center;gap:14px;
+  transition:box-shadow 0.15s;
+}
+.lib-item:hover{box-shadow:var(--shadow);}
+
+.lib-thumb{
+  width:44px;height:44px;border-radius:7px;
+  background:var(--paper2);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;overflow:hidden;
+}
+.lib-thumb img{width:100%;height:100%;object-fit:cover;}
+.lib-thumb-placeholder{font-size:18px;}
+
+.lib-info{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;}
+.lib-item-hook{font-size:13px;font-weight:600;color:var(--ink);letter-spacing:-0.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lib-item-meta{display:flex;align-items:center;gap:8px;}
+.lib-item-angle{font-size:10.5px;color:var(--ink3);}
+.lib-item-note{font-size:10.5px;color:var(--ink3);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:200px;}
+
+.status-pill{
+  font-size:9px;font-weight:700;letter-spacing:0.8px;text-transform:uppercase;
+  padding:3px 9px;border-radius:20px;flex-shrink:0;
+  font-family:'Geist Mono',monospace;
+}
+.status-testing{background:rgba(59,130,246,0.1);color:#2563EB;border:1px solid rgba(59,130,246,0.2);}
+.status-winner{background:var(--emerald-dim);color:var(--emerald);border:1px solid var(--emerald-bd);}
+.status-fatigued{background:rgba(217,79,43,0.08);color:var(--fire);border:1px solid var(--fire-bd);}
+.status-archived{background:var(--paper2);color:var(--ink3);border:1px solid var(--border);}
+
+.lib-actions{display:flex;gap:6px;flex-shrink:0;}
+.lib-btn{
+  font-size:10.5px;font-weight:600;color:var(--ink2);
+  background:var(--paper);border:1px solid var(--border);
+  border-radius:6px;padding:4px 10px;cursor:pointer;
+  font-family:'Geist',sans-serif;transition:all 0.12s;white-space:nowrap;
+}
+.lib-btn:hover{border-color:var(--border2);color:var(--ink);}
+.lib-btn.primary{background:var(--ink);color:var(--white);border-color:var(--ink);}
+.lib-btn.primary:hover{background:var(--fire);}
+
+/* ─── ENHANCED CARD FOOTER ─── */
+.ccard-footer{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 18px;
+  border-top:1px solid var(--border);
+  background:var(--paper);
+  gap:8px;
+}
+.ccard-footer-left{display:flex;gap:6px;}
+.ccard-footer-right{display:flex;gap:6px;}
+
+/* ─── ENHANCED INPUT BAR ─── */
+.input-top-row{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:10px;
+}
+.input-mode-label{
+  display:flex;align-items:center;gap:6px;
+  font-size:11px;font-weight:600;color:var(--ink2);
+  flex-shrink:0;
+}
+.input-mode-icon{font-size:13px;}
+.input-helper{
+  font-size:11px;color:var(--ink3);
+  text-align:right;flex:1;
+}
+
+/* ─── INPUT AREA ─── */
+.input-area{
+  flex-shrink:0;
+  border-top:1px solid var(--border);
+  background:rgba(245,243,238,0.95);
+  backdrop-filter:blur(12px);
+  padding:12px 28px 16px;
+}
+
+.input-inner{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:8px;}
+
+/* Mode bar */
+.mode-bar{display:flex;gap:5px;overflow-x:auto;padding-bottom:1px;scrollbar-width:none;}
 .mode-bar::-webkit-scrollbar{display:none;}
-.mbtn{display:flex;align-items:center;gap:5px;padding:5px 12px;background:var(--white);border:1.5px solid var(--border);border-radius:20px;font-size:11.5px;font-weight:500;color:var(--ink2);cursor:pointer;transition:all 0.15s;font-family:'Satoshi',sans-serif;white-space:nowrap;flex-shrink:0;}
-.mbtn:hover{border-color:var(--border2);color:var(--ink);}
-.mbtn.on{background:var(--ink);border-color:var(--ink);color:white;}
-.mbtni{font-size:13px;}
+.mbar-btn{
+  display:flex;align-items:center;gap:5px;
+  padding:5px 12px;
+  background:var(--white);border:1.5px solid var(--border);
+  border-radius:20px;
+  font-size:11.5px;font-weight:500;color:var(--ink2);
+  cursor:pointer;transition:all 0.15s;
+  font-family:'Geist',sans-serif;white-space:nowrap;flex-shrink:0;
+}
+.mbar-btn:hover{border-color:var(--border2);color:var(--ink);}
+.mbar-btn.on{background:var(--ink);border-color:var(--ink);color:var(--white);}
+.mbar-icon{font-size:13px;}
 
-.input-box{display:flex;align-items:flex-end;gap:8px;background:var(--white);border:1.5px solid var(--border2);border-radius:var(--r);padding:12px 12px 12px 18px;box-shadow:0 4px 24px rgba(14,14,12,0.08),0 1px 4px rgba(14,14,12,0.04);transition:border-color 0.2s;}
-.input-box:focus-within{border-color:var(--ink);}
-#p{flex:1;background:none;border:none;outline:none;font-family:'Satoshi',sans-serif;font-size:14px;color:var(--ink);resize:none;line-height:1.6;max-height:120px;overflow-y:auto;min-height:22px;}
+/* Input box */
+.input-box{
+  display:flex;align-items:flex-end;gap:8px;
+  background:var(--white);
+  border:1.5px solid var(--border2);
+  border-radius:var(--r);
+  padding:11px 11px 11px 18px;
+  box-shadow:0 4px 20px rgba(20,18,16,0.08),0 1px 4px rgba(20,18,16,0.04);
+  transition:border-color 0.18s,box-shadow 0.18s;
+}
+.input-box:focus-within{
+  border-color:var(--ink);
+  box-shadow:0 4px 20px rgba(20,18,16,0.08),0 0 0 3px rgba(20,18,16,0.06);
+}
+
+#p{
+  flex:1;background:none;border:none;outline:none;
+  font-family:'Geist',sans-serif;font-size:14px;font-weight:400;
+  color:var(--ink);resize:none;line-height:1.6;
+  max-height:120px;overflow-y:auto;min-height:22px;
+}
 #p::placeholder{color:var(--ink3);}
-.go{width:36px;height:36px;background:var(--ink);border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.18s;}
-.go:hover{background:var(--rose);transform:scale(1.06);}
-.go:disabled{opacity:0.2;cursor:not-allowed;transform:none;}
-.go svg{width:15px;height:15px;}
-.ihint{text-align:center;margin-top:7px;font-size:11px;color:var(--ink3);}
 
-@media(max-width:600px){
-  header{padding:0 16px;}
-  .msgs,.input-wrap{padding-left:16px;padding-right:16px;}
-  .empty{padding:28px 16px;}
-  .chook{font-size:18px;}
-  .izone.story{max-height:300px;}
+.send-btn{
+  width:34px;height:34px;
+  background:var(--ink);border:none;border-radius:9px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all 0.18s cubic-bezier(0.34,1.4,0.64,1);
+}
+.send-btn:hover{background:var(--fire);transform:scale(1.06);}
+.send-btn:active{transform:scale(0.96);}
+.send-btn:disabled{opacity:0.2;cursor:not-allowed;transform:none;}
+.send-btn svg{width:14px;height:14px;}
+
+.input-hint{
+  text-align:center;font-size:11px;color:var(--ink3);
+  font-family:'Geist',sans-serif;
+}
+
+@media(max-width:640px){
+  header{padding:0 16px;grid-template-columns:1fr auto;}
+  .header-right{display:none;}
+  .input-area,.msgs-inner,.offer-layout,.offer-results-layout,.offer-banner{padding-left:16px;padding-right:16px;}
+  .creative-empty{padding:28px 16px;}
+  .field-group{grid-template-columns:1fr;}
+  .c-hook{font-size:20px;}
+  .offer-headline-big{font-size:20px;}
 }
 </style>
 </head>
@@ -148,472 +807,764 @@ header{flex-shrink:0;display:flex;align-items:center;justify-content:space-betwe
 
 <header>
   <div class="logo">
-    <div class="lmark">
-      <svg viewBox="0 0 15 15" fill="none">
-        <path d="M7.5 1.5L1 5.5V14h4v-4h5v4h4V5.5L7.5 1.5z" fill="white" opacity="0.92"/>
-        <circle cx="11" cy="3.5" r="2" fill="#E8412A"/>
+    <div class="logo-mark">
+      <svg viewBox="0 0 16 16" fill="none">
+        <path d="M8 1.5L1.5 5.5V14.5h4v-4.5h5v4.5h4V5.5L8 1.5z" fill="white" opacity="0.92"/>
+        <circle cx="12" cy="3.5" r="2" fill="#D94F2B"/>
       </svg>
     </div>
-    <span class="lname">Creative Flywheel</span>
+    <span class="logo-name">Creative Flywheel</span>
   </div>
-  <div class="hstatus"><div class="hdot"></div>Live</div>
+
+  <div class="tabs">
+    <button class="tab active" onclick="switchTab('offer',this)">
+      <span class="tab-icon">💰</span> Offers
+    </button>
+    <button class="tab" onclick="switchTab('creative',this)">
+      <span class="tab-icon">🎨</span> Creatives
+    </button>
+  </div>
+
+  <div class="header-right">
+    <div class="live-chip"><div class="live-dot"></div>System live</div>
+  </div>
 </header>
 
-<div class="body" id="body">
+<!-- ════ OFFER PANEL ════ -->
+<div class="panel active" id="panel-offer">
+  <div class="scroll">
 
-  <!-- EMPTY STATE -->
-  <div class="empty" id="empty">
-    <h1 class="etitle">Your ads should evolve<br>faster than they <em>fatigue.</em></h1>
-    <p class="esub">Pick a mode, describe what you need, and get real ad images with copy — ready to test.</p>
+    <!-- FORM -->
+    <div id="offer-form-wrap">
+      <div class="offer-layout">
+        <div class="section-eyebrow">Offer Engineer</div>
+        <h1 class="offer-title">Engineer offers that<br><span style="color:var(--fire)">actually convert.</span></h1>
+        <p class="offer-sub">Input your client's details and we'll design the 3 highest-converting offers — then build creatives around the best one.</p>
 
-    <div>
-      <div class="modes-label" style="text-align:center;margin-bottom:10px;">Choose a mode</div>
-      <div class="modes" id="emptyModes">
-        <button class="mode active" data-mode="refresh" onclick="setMode('refresh',this)">
-          <span class="mode-icon">🔄</span> Refresh
-        </button>
-        <button class="mode" data-mode="innovate" onclick="setMode('innovate',this)">
-          <span class="mode-icon">🔥</span> Innovate
-        </button>
-        <button class="mode" data-mode="ab" onclick="setMode('ab',this)">
-          <span class="mode-icon">🧪</span> A/B Batch
-        </button>
-        <button class="mode" data-mode="seasonal" onclick="setMode('seasonal',this)">
-          <span class="mode-icon">📅</span> Seasonal
-        </button>
-        <button class="mode" data-mode="ugc" onclick="setMode('ugc',this)">
-          <span class="mode-icon">📱</span> UGC
-        </button>
+        <div class="form-grid">
+          <div class="field">
+            <label>Clinic name</label>
+            <input type="text" id="of-clinic" placeholder="Modern Image Aesthetics & Wellness"/>
+          </div>
+          <div class="field-group">
+            <div class="field">
+              <label>Location</label>
+              <input type="text" id="of-location" placeholder="Tampa, FL"/>
+            </div>
+            <div class="field">
+              <label>Target audience</label>
+              <input type="text" id="of-audience" placeholder="Women 28–50"/>
+            </div>
+          </div>
+          <div class="field">
+            <label>Services & current pricing</label>
+            <textarea id="of-services" placeholder="Laser Hair Removal — $300/session&#10;Botox — $14/unit&#10;HydraFacial — $199&#10;Body Contouring — $400/session"></textarea>
+          </div>
+          <div class="field">
+            <label>Current offer running (if any)</label>
+            <input type="text" id="of-current" placeholder="$749 LHR unlimited 1-year — running 3 months"/>
+          </div>
+          <div class="field">
+            <label>Primary goal</label>
+            <select id="of-goal">
+              <option value="leads">Maximum leads (volume)</option>
+              <option value="quality">High-quality leads (buyers ready to spend)</option>
+              <option value="retention">Retention / membership growth</option>
+              <option value="new-service">Launch a new service</option>
+              <option value="reactivate">Reactivate past clients</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Additional context</label>
+            <input type="text" id="of-extra" placeholder="Competitor running $99 Botox nearby, slow month ahead..."/>
+          </div>
+          <button class="gen-btn" id="offerBtn" onclick="generateOffer()">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1l1.8 5.5H15l-4.6 3.4 1.8 5.5L8 12l-4.2 3.4 1.8-5.5L1 6.5h5.2L8 1z" fill="white"/></svg>
+            Engineer the best offers
+          </button>
+        </div>
       </div>
     </div>
 
-    <p id="modeDesc" style="font-size:13px;color:var(--ink3);max-width:340px;line-height:1.6;min-height:36px;transition:opacity 0.2s;"></p>
-  </div>
+    <!-- RESULTS -->
+    <div id="offer-results-wrap" style="display:none;">
+      <div class="offer-results-layout">
+        <div class="results-header">
+          <div class="results-header-left">
+            <div class="results-title" id="results-title">Offers engineered</div>
+            <div class="results-sub">Ranked by conversion potential · best first</div>
+          </div>
+          <button class="back-btn" onclick="resetOffer()">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            New offer
+          </button>
+        </div>
+        <div id="offer-cards"></div>
+      </div>
+    </div>
 
-  <div class="msgs" id="msgs" style="display:none;"></div>
+  </div>
 </div>
 
-<!-- INPUT -->
-<div class="input-wrap">
-  <!-- mode bar -->
-  <div class="mode-bar" id="modeBar">
-    <button class="mbtn on" data-mode="refresh" onclick="setMode('refresh',this)"><span class="mbtni">🔄</span> Refresh</button>
-    <button class="mbtn" data-mode="innovate" onclick="setMode('innovate',this)"><span class="mbtni">🔥</span> Innovate</button>
-    <button class="mbtn" data-mode="ab" onclick="setMode('ab',this)"><span class="mbtni">🧪</span> A/B Batch</button>
-    <button class="mbtn" data-mode="seasonal" onclick="setMode('seasonal',this)"><span class="mbtni">📅</span> Seasonal</button>
-    <button class="mbtn" data-mode="ugc" onclick="setMode('ugc',this)"><span class="mbtni">📱</span> UGC</button>
+<!-- ════ CREATIVE PANEL ════ -->
+<div class="panel" id="panel-creative">
+
+  <!-- Empty state -->
+  <div id="creative-empty" style="display:flex;flex:1;">
+    <div class="creative-empty">
+      <div class="ce-eyebrow">Creative Engine</div>
+      <h2 class="ce-title">Ads that evolve<br>faster than they <span style="color:var(--fire)">fatigue.</span></h2>
+      <p class="ce-sub">Pick a mode, describe what you need, get real ad images with copy — ready to test.</p>
+
+      <div class="mode-pills-wrap" id="emptyModes">
+        <button class="mode-pill-btn on" data-mode="refresh" onclick="setMode('refresh',this)"><span class="mode-icon">🔄</span>Refresh</button>
+        <button class="mode-pill-btn" data-mode="innovate" onclick="setMode('innovate',this)"><span class="mode-icon">🔥</span>Innovate</button>
+        <button class="mode-pill-btn" data-mode="ab" onclick="setMode('ab',this)"><span class="mode-icon">🧪</span>A/B Batch</button>
+        <button class="mode-pill-btn" data-mode="seasonal" onclick="setMode('seasonal',this)"><span class="mode-icon">📅</span>Seasonal</button>
+        <button class="mode-pill-btn" data-mode="ugc" onclick="setMode('ugc',this)"><span class="mode-icon">📱</span>UGC</button>
+      </div>
+
+      <p class="mode-desc-txt" id="modeDesc"></p>
+    </div>
   </div>
-  <div class="input-box">
-    <textarea id="p" placeholder="Describe the service, client, offer, or what's fatiguing..." rows="1" onkeydown="onk(event)" oninput="rst(this)"></textarea>
-    <button class="go" id="go" onclick="send()">
-      <svg viewBox="0 0 16 16" fill="none"><path d="M8 13V3M3 8l5-5 5 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
+
+  <!-- Messages + library -->
+  <div id="creative-chat" style="display:none;flex:1;flex-direction:column;min-height:0;overflow:hidden;">
+
+    <!-- Selected offer card -->
+    <div class="selected-offer-card" id="selected-offer-card" style="display:none;">
+      <div class="soc-inner">
+        <div class="soc-left">
+          <div class="soc-eyebrow">Selected winning offer</div>
+          <div class="soc-headline" id="soc-headline">—</div>
+          <div class="soc-meta">
+            <div class="soc-chip" id="soc-audience">—</div>
+            <div class="soc-chip-dot"></div>
+            <div class="soc-chip" id="soc-price">—</div>
+            <div class="soc-chip-dot"></div>
+            <div class="soc-chip" id="soc-hook">—</div>
+          </div>
+        </div>
+        <div class="soc-right">
+          <div class="soc-cta-pill" id="soc-cta">Book Now</div>
+          <button class="soc-change" onclick="switchTab('offer',document.querySelector(\'.tab\'))">Change offer</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="msgs-area">
+      <div class="msgs-inner" id="msgs"></div>
+      <!-- Library section rendered here after first generation -->
+      <div class="library-section" id="library-section" style="display:none;">
+        <div class="lib-header">
+          <div class="lib-title">
+            📚 Creative Library
+            <span class="lib-count" id="lib-count">0 saved</span>
+          </div>
+          <button class="lib-btn primary" onclick="generateFromLibrary()">+ New variations</button>
+        </div>
+        <div id="lib-items">
+          <div class="lib-empty">
+            <strong>No creatives saved yet.</strong><br>
+            Hit "Save to library" on any generated creative to track it here.
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="ihint">↵ to generate · reply to refine or push further</div>
+
+  <!-- Input -->
+  <div class="input-area">
+    <div class="input-inner">
+      <div class="mode-bar" id="modeBar">
+        <button class="mbar-btn on" data-mode="refresh" onclick="setMode('refresh',this)"><span class="mbar-icon">🔄</span>Refresh</button>
+        <button class="mbar-btn" data-mode="innovate" onclick="setMode('innovate',this)"><span class="mbar-icon">🔥</span>Innovate</button>
+        <button class="mbar-btn" data-mode="ab" onclick="setMode('ab',this)"><span class="mbar-icon">🧪</span>A/B Batch</button>
+        <button class="mbar-btn" data-mode="seasonal" onclick="setMode('seasonal',this)"><span class="mbar-icon">📅</span>Seasonal</button>
+        <button class="mbar-btn" data-mode="ugc" onclick="setMode('ugc',this)"><span class="mbar-icon">📱</span>UGC</button>
+      </div>
+      <div class="input-box">
+        <div style="display:flex;flex-direction:column;flex:1;gap:0;">
+          <div class="input-top-row">
+            <div class="input-mode-label" id="inputModeLabel"><span class="input-mode-icon">🔄</span> Refresh mode</div>
+            <div class="input-helper">Generate, refresh, or create variations from your winning offer.</div>
+          </div>
+          <textarea id="p" placeholder="Paste the underperforming ad or describe what's fatiguing…" rows="1" onkeydown="onk(event)" oninput="rst(this)" style="margin-top:6px;"></textarea>
+        </div>
+        <button class="send-btn" id="go" onclick="sendCreative()">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M8 13V3M3 8l5-5 5 5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
-const IDEOGRAM_KEY = '682GtwPvWEg8rp8TjIQJSuM-wFHzwSLgnvgAipeVqvr39ntZZG8Jq1BC4mHbtLZNATIktH328EaAeuLB9BeBiw';
+const PROXY='https://ideogram-proxy.takuto-nakajima.workers.dev';
 
-const MODES = {
-  refresh: {
-    label: 'Refresh',
-    icon: '🔄',
-    desc: 'Same winning angles, fresh execution. Replace fatiguing ads without abandoning what works.',
-    system: `You are refreshing fatiguing ads. Keep the same proven angles and offer structures but execute them with completely new hooks, visuals, and energy. Don't reinvent the wheel — just make it feel brand new. Generate 3 variations.`
+/* ── TAB ── */
+function switchTab(tab,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector(`.tab[onclick*="${tab}"]`)?.classList.add('active');
+  document.getElementById(`panel-${tab}`).classList.add('active');
+}
+
+/* ── MODES ── */
+const MODES={
+  refresh:{
+    label:'Refresh',icon:'🔄',
+    desc:'Same proven angles, completely fresh execution. Replace fatiguing ads without abandoning what works.',
+    placeholder:'Paste the underperforming ad or describe what\'s fatiguing…',
+    sys:'Keep the same proven angles but execute with completely new hooks, visuals, and energy. Generate 3 variations.'
   },
-  innovate: {
-    label: 'Innovate',
-    icon: '🔥',
-    desc: 'No rules. Push way outside the obvious. Find angles nobody else is running.',
-    system: `You are in full creative innovation mode. Ignore conventional med spa ads completely. Find angles that are surprising, culturally sharp, emotionally unexpected, or even uncomfortable. Humor, identity, anti-ad energy, raw honesty — anything that stops a scroll in a way nobody else is doing. Generate 4 bold variations, each completely different.`
+  innovate:{
+    label:'Innovate',icon:'🔥',
+    desc:'No rules. Push way outside the obvious. Find angles nobody else is running.',
+    placeholder:'Describe the service and audience to generate a new breakthrough angle…',
+    sys:'Full creative innovation mode. Ignore conventional med spa ads. Find surprising, culturally sharp, emotionally unexpected angles. Generate 4 bold variations, each completely different.'
   },
-  ab: {
-    label: 'A/B Batch',
-    icon: '🧪',
-    desc: 'Systematic variations that isolate one variable at a time — hook, visual, CTA, angle.',
-    system: `You are building a structured A/B test batch. Generate exactly 4 variations that are INTENTIONALLY similar except for ONE changing variable each time. Label each clearly: Variation A (hook test), Variation B (CTA test), Variation C (visual test), Variation D (angle test). This is for systematic split testing.`
+  ab:{
+    label:'A/B Batch',icon:'🧪',
+    desc:'Systematic variations that isolate one variable — hook, visual, CTA, or angle.',
+    placeholder:'Create 6–10 variations of this winning angle to A/B test…',
+    sys:'Build a structured A/B test batch. Generate exactly 4 variations changing ONE variable each time. Label clearly: Variation A (hook), B (CTA), C (visual), D (angle).'
   },
-  seasonal: {
-    label: 'Seasonal',
-    icon: '📅',
-    desc: 'Hook into the current cultural moment, season, or upcoming holiday.',
-    system: `You are building seasonally-timed ad creatives. Hook into the current cultural moment — the season, upcoming holidays, cultural events, or timely emotions (summer body confidence, New Year energy, Valentine's self-love, holiday gifting, back-to-school, etc.). Make the timing feel urgent and relevant. Generate 3 variations with strong seasonal hooks.`
+  seasonal:{
+    label:'Seasonal',icon:'📅',
+    desc:'Hook into the current cultural moment, season, or upcoming holiday.',
+    placeholder:'Generate Mother\'s Day / summer / holiday campaign creatives…',
+    sys:'Build seasonally-timed creatives. Hook into current cultural moments — season, holidays, timely emotions. Generate 3 variations with strong seasonal hooks.'
   },
-  ugc: {
-    label: 'UGC',
-    icon: '📱',
-    desc: 'Raw, authentic, creator-style content that feels real — not polished ad creative.',
-    system: `You are creating UGC-style (User Generated Content) video concepts. These should feel completely authentic — like a real customer, influencer, or creator filmed it on their phone. No polish. No obvious ad energy. Think: talking to camera, before/after reveal, "I tried it so you don't have to", reaction videos, honest testimonials, day-in-the-life. The visual brief should describe a genuine, unpolished UGC scene. Generate 3 UGC concepts with video scripts.`
+  ugc:{
+    label:'UGC',icon:'📱',
+    desc:'Raw, authentic, creator-style content that feels real — not polished ad creative.',
+    placeholder:'Create UGC-style ad concepts with hooks, scripts, and image prompts…',
+    sys:'Create UGC-style video concepts. Should feel completely authentic — like a real customer filmed it on their phone. No polish. Generate 3 UGC concepts.'
   }
 };
 
-const BASE_SYS = `You are Creative Flywheel — an autonomous ad creative engine for med spas. You generate high-converting Meta ad concepts with real images.
+let activeMode='refresh',offerCtx=null,hist=[],busy=false;
+let library=[]; // { id, hook, angle, mode, status, note, imgUrl, bodyCopy, cta }
+updateModeDesc();
+updateInputModeLabel();
 
-PROVEN PATTERNS:
-- Bold offer hooks: "$749. Unlimited. 1 Year. Done."
-- Pain-first: "You've tried waxing. You've tried shaving. Let's end this."
-- Specific proof: "4,200+ treatments" not "experienced team"
-- Pattern interrupts, humor, rawness, counterintuition
-- Real urgency: seasonal, limited slots, intro pricing
-- Micro-testimonials as hooks: "I can't believe I waited this long"
+function setMode(mode,el){
+  activeMode=mode;
+  document.querySelectorAll('#emptyModes .mode-pill-btn').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
+  document.querySelectorAll('#modeBar .mbar-btn').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
+  updateModeDesc();
+  updateInputModeLabel();
+  updatePlaceholder();
+  document.getElementById('p').focus();
+}
 
-CRITICAL — The imagePrompt field is sent directly to an image generation AI. Write it as a detailed, vivid image prompt:
-- Exactly what the scene looks like
-- Model description, pose, expression, setting
-- The TEXT that appears on the image (written out exactly)
-- Color palette, lighting, composition
-- Mood and aesthetic
-- Specify "Meta ad" or "Instagram ad" format
+function updateModeDesc(){
+  const el=document.getElementById('modeDesc');
+  if(!el)return;
+  el.style.opacity='0';
+  setTimeout(()=>{el.textContent=MODES[activeMode]?.desc||'';el.style.opacity='1';},150);
+}
+
+function updateInputModeLabel(){
+  const el=document.getElementById('inputModeLabel');
+  if(!el)return;
+  const m=MODES[activeMode]||MODES.refresh;
+  el.innerHTML=`<span class="input-mode-icon">${m.icon}</span> ${m.label} mode`;
+}
+
+function updatePlaceholder(){
+  const el=document.getElementById('p');
+  if(!el)return;
+  el.placeholder=MODES[activeMode]?.placeholder||'Describe what you need…';
+}
+
+function clearOfferCtx(){
+  offerCtx=null;
+  document.getElementById('selected-offer-card').style.display='none';
+}
+
+function updateSelectedOfferCard(){
+  const card=document.getElementById('selected-offer-card');
+  if(!offerCtx?.offer){card.style.display='none';return;}
+  const o=offerCtx.offer;
+  card.style.display='block';
+  document.getElementById('soc-headline').textContent=o.headline||'—';
+  document.getElementById('soc-audience').textContent=offerCtx.audience||o.targetedAt||'—';
+  document.getElementById('soc-price').textContent=o.priceStructure||'—';
+  document.getElementById('soc-hook').textContent=(o.hooks?.[0]||o.conversionPsychology||'').slice(0,48)+'…';
+  document.getElementById('soc-cta').textContent=o.type||'View offer';
+}
+
+/* ── HELPERS ── */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>');}
+function unesc(s){return String(s).replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');}
+function rst(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
+function onk(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendCreative();}}
+function scrollMsgs(){
+  setTimeout(()=>{
+    const a=document.querySelector('.msgs-area');
+    if(a)a.scrollTop=a.scrollHeight;
+  },80);
+}
+
+/* ── OFFER GENERATOR ── */
+const OFFER_SYS=`You are an expert med spa marketing strategist and offer engineer. Design the highest-converting promotional offers — offers that maximize lead generation, attract the right clients, and drive bookings.
+
+You understand: price anchoring, perceived value, what structures work per service (LHR → unlimited packages, Botox → unit bundles, HydraFacial → memberships), lead quality vs volume tradeoffs, genuine urgency mechanics, competitive differentiation, seasonal timing.
+
+Generate exactly 3 ranked offers. Respond ONLY with valid JSON array, no markdown, no preamble:
+
+[{"rank":1,"type":"offer type","headline":"punchy, specific, value-clear headline","priceStructure":"exact pricing e.g. $749 for unlimited treatments, 3 areas, 12 months","originalValue":"what this normally costs / value comparison","urgencyMechanic":"genuine urgency or scarcity element","targetedAt":"who this attracts","conversionPsychology":"specific psychological reason this converts","potentialWeakness":"honest potential downside","bestChannel":"best Meta ad format and audience targeting","hooks":["hook 1","hook 2","hook 3"]}]`;
+
+async function generateOffer(){
+  const clinic=document.getElementById('of-clinic').value.trim();
+  const location=document.getElementById('of-location').value.trim();
+  const audience=document.getElementById('of-audience').value.trim();
+  const services=document.getElementById('of-services').value.trim();
+  const current=document.getElementById('of-current').value.trim();
+  const goal=document.getElementById('of-goal').value;
+  const extra=document.getElementById('of-extra').value.trim();
+  if(!services){alert('Please enter at least the services and pricing.');return;}
+
+  const btn=document.getElementById('offerBtn');
+  btn.disabled=true;btn.innerHTML=`<div class="dots" style="justify-content:center"><span></span><span></span><span></span></div> Analyzing...`;
+
+  const prompt=`Clinic: ${clinic||'Med Spa'}
+Location: ${location||'Not specified'}
+Target audience: ${audience||'Women 25-55'}
+Services & pricing:\n${services}
+Current offer: ${current||'None'}
+Goal: ${goal}
+Context: ${extra||'None'}
+
+Rank 3 offers by conversion potential.`;
+
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:3000,system:OFFER_SYS,messages:[{role:'user',content:prompt}]})});
+    if(!r.ok)throw new Error('API error');
+    const d=await r.json();
+    const text=d.content.map(b=>b.text||'').join('').trim();
+    const clean=text.replace(/```json\n?/g,'').replace(/```\n?/g,'').trim();
+    const offers=JSON.parse(clean);
+    offerCtx={clinic,location,audience,offer:offers[0]};
+    updateSelectedOfferCard();
+    renderOffers(offers,clinic);
+  }catch(err){alert('Something went wrong: '+err.message);}
+  finally{
+    btn.disabled=false;
+    btn.innerHTML=`<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 1l1.8 5.5H15l-4.6 3.4 1.8 5.5L8 12l-4.2 3.4 1.8-5.5L1 6.5h5.2L8 1z" fill="white"/></svg> Engineer the best offers`;
+  }
+}
+
+function renderOffers(offers,clinic){
+  document.getElementById('offer-form-wrap').style.display='none';
+  document.getElementById('offer-results-wrap').style.display='block';
+  document.getElementById('results-title').textContent=`Offers for ${clinic||'your client'}`;
+
+  const rankLabel={1:'🥇 Best offer',2:'2nd option',3:'3rd option'};
+  const rankCls={1:'rank-1',2:'rank-2',3:'rank-3'};
+
+  document.getElementById('offer-cards').innerHTML=offers.map(o=>`
+  <div class="offer-card" id="oc-${o.rank}">
+    <div class="offer-card-header">
+      <div class="offer-rank-row">
+        <span class="rank-pill ${rankCls[o.rank]||'rank-3'}">${rankLabel[o.rank]||'#'+o.rank}</span>
+        <span class="offer-type-pill">${esc(o.type||'')}</span>
+      </div>
+    </div>
+    <div class="offer-card-body">
+      <div>
+        <div class="offer-headline-big">${esc(o.headline||'')}</div>
+        <div class="offer-price-line">${esc(o.priceStructure||'')}</div>
+      </div>
+      <div class="offer-row">
+        <div class="offer-lbl">Vs. normal price</div>
+        <div class="offer-val">${esc(o.originalValue||'')}</div>
+      </div>
+      <div class="offer-row">
+        <div class="offer-lbl">Urgency mechanic</div>
+        <div class="offer-val">${esc(o.urgencyMechanic||'')}</div>
+      </div>
+      <div class="offer-row">
+        <div class="offer-lbl">Designed for</div>
+        <div class="offer-val">${esc(o.targetedAt||'')}</div>
+      </div>
+      <div class="offer-row">
+        <div class="offer-lbl">Ad hooks to test</div>
+        <div class="hooks-row">${(o.hooks||[]).map(h=>`<span class="hook-chip">${esc(h)}</span>`).join('')}</div>
+      </div>
+      <div class="offer-row">
+        <div class="offer-lbl">Best ad channel</div>
+        <div class="offer-val">${esc(o.bestChannel||'')}</div>
+      </div>
+      <div class="why-box">
+        <div class="why-icon">💡</div>
+        <div class="why-text">${esc(o.conversionPsychology||'')}</div>
+      </div>
+      ${o.potentialWeakness?`<div class="watch-box">⚠ ${esc(o.potentialWeakness)}</div>`:''}
+    </div>
+    <div class="offer-card-footer">
+      <div style="display:flex;gap:8px;">
+        <button class="btn btn-ghost" onclick="copyOffer(${o.rank},this)">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          Copy
+        </button>
+      </div>
+      <button class="btn btn-dark" onclick="buildCreatives(${o.rank})">
+        🎨 Build creatives →
+      </button>
+    </div>
+  </div>`).join('');
+}
+
+function resetOffer(){
+  document.getElementById('offer-form-wrap').style.display='block';
+  document.getElementById('offer-results-wrap').style.display='none';
+}
+
+function copyOffer(rank,btn){
+  const card=document.getElementById(`oc-${rank}`);
+  const h=card.querySelector('.offer-headline-big')?.innerText||'';
+  const p=card.querySelector('.offer-price-line')?.innerText||'';
+  const vals=[...card.querySelectorAll('.offer-val')].map(el=>el.innerText).join('\n');
+  navigator.clipboard.writeText(`OFFER: ${h}\nPRICING: ${p}\n\n${vals}`).then(()=>{
+    btn.classList.add('ok');btn.innerHTML='✓ Copied';
+    setTimeout(()=>{btn.classList.remove('ok');btn.innerHTML=`<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`;},2000);
+  });
+}
+
+function buildCreatives(rank){
+  const card=document.getElementById(`oc-${rank}`);
+  const h=card.querySelector('.offer-headline-big')?.innerText||'';
+  const p=card.querySelector('.offer-price-line')?.innerText||'';
+  if(offerCtx)offerCtx.selected={headline:h,price:p};
+
+  // Switch tab
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelector('.tab:nth-child(2)').classList.add('active');
+  document.getElementById('panel-creative').classList.add('active');
+
+  // Update selected offer card
+  updateSelectedOfferCard();
+
+  // Pre-fill
+  const clinic=offerCtx?.clinic||'the clinic';
+  const loc=offerCtx?.location?` in ${offerCtx.location}`:'';
+  document.getElementById('p').value=`Generate 3 scroll-stopping static ads for ${clinic}${loc} promoting: ${h} — ${p}`;
+  rst(document.getElementById('p'));
+
+  showChat();
+  document.getElementById('p').focus();
+}
+
+/* ── CREATIVE GENERATOR ── */
+const BASE_SYS=`You are Creative Flywheel — an autonomous ad creative engine for med spas. Generate high-converting Meta ad concepts.
+
+PROVEN PATTERNS: Bold offer hooks, pain-first hooks, specific social proof, pattern interrupts, real urgency, micro-testimonials.
+INNOVATIVE ANGLES: Humor, identity reframes, relationship angles, regret framing, anti-ad energy, cost comparison, raw UGC.
+
+The imagePrompt field goes directly to an image AI. Write it as: exact scene description, model/pose/setting, TEXT overlays written out exactly, colors, lighting, composition, mood. Specify "Meta ad format."
 
 Respond with ONE punchy sentence then EXACTLY:
 
 INTRO: [one sentence]
 
 \`\`\`json
-[{"variation":1,"format":"static|story|carousel","angle":"label","hook":"max 8 words ON the ad","subheadline":"offer/supporting line max 12 words","bodyCopy":"2-4 sentence caption, human voice, not AI-sounding","cta":"button text","imagePrompt":"detailed image generation prompt — describe the full scene, text overlays ON the image, colors, lighting, model, mood, composition. Be specific. Example: Close-up of a laughing woman in her 30s, smooth bare legs in frame, bright airy studio with white backdrop, bold black sans-serif text overlay reads DONE WITH RAZORS. bottom text in smaller font: $749 · Unlimited · 1 Year. Clean Instagram ad aesthetic, natural lighting, photorealistic","whyItWorks":"specific psychological reason this converts"}]
-\`\`\`
+[{"variation":1,"format":"static|story|carousel","angle":"label","hook":"max 8 words ON the ad","subheadline":"max 12 words","bodyCopy":"2-4 sentence caption, human voice","cta":"button text","imagePrompt":"detailed image generation prompt with exact text overlays, scene, model, colors, composition","whyItWorks":"specific conversion reason"}]
+\`\`\``;
 
-Follow-ups: chat naturally + updated creatives in same format. Plain questions: just answer.`;
-
-let hist = [], busy = false, activeMode = 'refresh';
-
-const modeDescs = {
-  refresh: 'Same winning angles, fresh execution. Replace fatiguing ads without abandoning what works.',
-  innovate: 'No rules. Push way outside the obvious. Find angles nobody else is running.',
-  ab: 'Systematic variations that isolate one variable at a time — hook, visual, CTA, angle.',
-  seasonal: 'Hook into the current cultural moment, season, or upcoming holiday.',
-  ugc: 'Raw, authentic, creator-style content that feels real — not polished ad creative.'
-};
-
-// Set mode on load
-updateModeDesc();
-
-function setMode(mode, el) {
-  activeMode = mode;
-  // Update empty state buttons
-  document.querySelectorAll('#emptyModes .mode').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
-  // Update mode bar
-  document.querySelectorAll('#modeBar .mbtn').forEach(b => b.classList.toggle('on', b.dataset.mode === mode));
-  updateModeDesc();
-  document.getElementById('p').focus();
+function showChat(){
+  document.getElementById('creative-empty').style.display='none';
+  const c=document.getElementById('creative-chat');
+  c.style.display='flex';c.style.flex='1';c.style.flexDirection='column';c.style.minHeight='0';c.style.overflow='hidden';
+  updateSelectedOfferCard();
 }
 
-function updateModeDesc() {
-  const el = document.getElementById('modeDesc');
-  if (el) { el.style.opacity = '0'; setTimeout(() => { el.textContent = modeDescs[activeMode] || ''; el.style.opacity = '1'; }, 150); }
+function addUserMsg(txt){
+  showChat();
+  const el=document.createElement('div');el.className='msg user';
+  el.innerHTML=`<div class="msg-who">You</div><div class="user-bubble">${esc(txt)}</div>`;
+  document.getElementById('msgs').appendChild(el);scrollMsgs();
 }
 
-function rst(el) { el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 120) + 'px'; }
-function onk(e) { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }
-
-function esc(s) {
-  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>');
-}
-
-function unesc(s) {
-  return String(s).replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"');
-}
-
-function scrollEnd() { setTimeout(() => { const b = document.getElementById('body'); b.scrollTop = b.scrollHeight; }, 80); }
-
-function showMsgs() {
-  document.getElementById('empty').style.display = 'none';
-  const m = document.getElementById('msgs');
-  m.style.display = 'flex'; m.style.flexDirection = 'column'; m.style.gap = '24px';
-}
-
-function addUser(txt) {
-  showMsgs();
-  const el = document.createElement('div');
-  el.className = 'msg user';
-  el.innerHTML = `<div class="who">You</div><div class="ubub">${esc(txt)}</div>`;
-  document.getElementById('msgs').appendChild(el);
-  scrollEnd();
-}
-
-function addSpin(mode) {
-  const el = document.createElement('div');
-  el.className = 'msg ai'; el.id = 'spin';
-  const m = MODES[mode] || MODES.refresh;
-  el.innerHTML = `<div class="who">Creative Flywheel</div>
-    <div class="think">
-      <div class="dots"><span></span><span></span><span></span></div>
-      <span id="stxt">${m.icon} ${m.label} mode — generating...</span>
-    </div>`;
-  document.getElementById('msgs').appendChild(el);
-  scrollEnd();
-  const lines = [
-    `${m.icon} ${m.label} mode — generating...`,
-    'Writing copy and image prompts...',
-    'Building your creative batch...',
-    'Almost ready...'
-  ];
-  let i = 0;
-  el._t = setInterval(() => { i = (i+1) % lines.length; const t = document.getElementById('stxt'); if(t) t.textContent = lines[i]; }, 1800);
+function addSpinner(mode){
+  const el=document.createElement('div');el.className='msg ai';el.id='spin';
+  const m=MODES[mode]||MODES.refresh;
+  el.innerHTML=`<div class="msg-who">Creative Flywheel</div>
+    <div class="thinking"><div class="dots"><span></span><span></span><span></span></div>
+    <span id="stxt">${m.icon} ${m.label} — generating...</span></div>`;
+  document.getElementById('msgs').appendChild(el);scrollMsgs();
+  const lines=[`${m.icon} ${m.label} — generating...`,'Writing copy + image prompts...','Building creative batch...','Almost ready...'];
+  let i=0;el._t=setInterval(()=>{i=(i+1)%lines.length;const t=document.getElementById('stxt');if(t)t.textContent=lines[i];},1800);
   return el;
 }
 
-function addAI(content, mode) {
-  const el = document.createElement('div');
-  el.className = 'msg ai';
-  el.innerHTML = `<div class="who">Creative Flywheel</div><div class="abub">${parse(content, mode)}</div>`;
-  document.getElementById('msgs').appendChild(el);
-  scrollEnd();
+function addAIMsg(content,mode){
+  const el=document.createElement('div');el.className='msg ai';
+  el.innerHTML=`<div class="msg-who">Creative Flywheel</div><div class="ai-bubble">${parseMsg(content,mode)}</div>`;
+  document.getElementById('msgs').appendChild(el);scrollMsgs();
 }
 
-function parse(content, mode) {
-  const m = content.match(/INTRO:\s*([\s\S]*?)```json\s*([\s\S]*?)```/);
-  if (m) {
-    let cards;
-    try { cards = JSON.parse(m[2].trim()); } catch { return `<div style="font-size:14px;line-height:1.75">${esc(content)}</div>`; }
-    return render(m[1].trim(), cards, mode);
-  }
-  return `<div style="font-size:14px;line-height:1.75;color:var(--ink2)">${esc(content)}</div>`;
+function parseMsg(content,mode){
+  const m=content.match(/INTRO:\s*([\s\S]*?)```json\s*([\s\S]*?)```/);
+  if(m){let cards;try{cards=JSON.parse(m[2].trim());}catch{return`<div style="font-size:14px;line-height:1.75">${esc(content)}</div>`;}return renderCards(m[1].trim(),cards,mode);}
+  return`<div style="font-size:14px;line-height:1.75;color:var(--ink2)">${esc(content)}</div>`;
 }
 
-const FL = { static:'Static', story:'Story', carousel:'Carousel', video:'Video' };
+const FL={static:'Static',story:'Story',carousel:'Carousel',video:'Video'};
 
-function render(intro, cards, mode) {
-  const m = MODES[mode] || MODES.refresh;
-  const ts = Date.now();
-
-  const html = cards.map((c, i) => {
-    const id = `cc${ts}${i}`;
-    const fmt = c.format || 'static';
-    const isStory = fmt === 'story';
-
-    return `
-    <div class="ccard" id="${id}" data-prompt="${esc(c.imagePrompt||c.hook+' med spa Meta ad')}" data-aspect="${isStory ? 'ASPECT_9_16' : 'ASPECT_1_1'}">
-      <div class="ctop">
+function renderCards(intro,cards,mode){
+  const m=MODES[mode]||MODES.refresh;
+  const ts=Date.now();
+  const html=cards.map((c,i)=>{
+    const id=`cc${ts}${i}`;const fmt=c.format||'static';const isStory=fmt==='story';
+    return`<div class="ccard" id="${id}" data-prompt="${esc(c.imagePrompt||c.hook+' med spa Meta ad')}" data-aspect="${isStory?'ASPECT_9_16':'ASPECT_1_1'}">
+      <div class="ccard-top">
         <div class="ctags">
-          <span class="tag r">${m.icon} ${m.label}</span>
-          <span class="tag">${FL[fmt]||fmt}</span>
-          <span class="tag">${esc(c.angle||'')}</span>
+          <span class="ctag accent">${m.icon} ${m.label}</span>
+          <span class="ctag">${FL[fmt]||fmt}</span>
+          <span class="ctag">${esc(c.angle||'')}</span>
         </div>
-        <span class="cnum">0${i+1}</span>
+        <span class="ccard-num">0${i+1}</span>
       </div>
-
       <div class="izone${isStory?' story':''}" id="iz-${id}">
         <div class="igen" id="ig-${id}">
           <div class="ibar"><div class="ibar-f"></div></div>
-          <span>Generating image...</span>
+          <div class="igen-txt">Generating image...</div>
         </div>
         <div class="iacts">
-          <button class="iact" onclick="dlImg('${id}')">
-            <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M8 2v9M4 8l4 4 4-4M2 14h12" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Download
-          </button>
-          <button class="iact" onclick="regenImg('${id}')">
-            <svg width="11" height="11" viewBox="0 0 16 16" fill="none"><path d="M2 8a6 6 0 0110.5-4M14 8a6 6 0 01-10.5 4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg>
-            Retry
-          </button>
+          <button class="iact" onclick="dlImg('${id}')"><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M8 2v9M4 8l4 4 4-4M2 14h12" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Download</button>
+          <button class="iact" onclick="regenImg('${id}')"><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M2 8a6 6 0 0110.5-4M14 8a6 6 0 01-10.5 4" stroke="white" stroke-width="1.8" stroke-linecap="round"/></svg> Retry</button>
         </div>
       </div>
-
-      <div class="cbody">
-        <div class="crow">
-          <div class="clbl">Headline</div>
-          <div class="chook">${esc(c.hook||'')}</div>
-          ${c.subheadline ? `<div class="csub">${esc(c.subheadline)}</div>` : ''}
+      <div class="ccard-body">
+        <div class="c-row">
+          <div class="c-lbl">Headline</div>
+          <div class="c-hook">${esc(c.hook||'')}</div>
+          ${c.subheadline?`<div class="c-sub">${esc(c.subheadline)}</div>`:''}
         </div>
-        <div class="crow">
-          <div class="clbl">Caption</div>
-          <div class="ccopy">${esc(c.bodyCopy||'')}</div>
+        <div class="c-row">
+          <div class="c-lbl">Caption</div>
+          <div class="c-copy">${esc(c.bodyCopy||'')}</div>
         </div>
-        <div class="crow">
-          <div class="clbl">CTA</div>
-          <div class="ccta">
-            <span class="ccta-t">${esc(c.cta||'Book Now')}</span>
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="c-row">
+          <div class="c-lbl">CTA</div>
+          <div class="c-cta">
+            <span class="c-cta-txt">${esc(c.cta||'Book Now')}</span>
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 6h8M6 2l4 4-4 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </div>
         </div>
-        ${c.whyItWorks ? `<div class="cwhy">💡 ${esc(c.whyItWorks)}</div>` : ''}
+        ${c.whyItWorks?`<div class="c-why">💡 ${esc(c.whyItWorks)}</div>`:''}
       </div>
-
-      <div class="cfoot">
-        <button class="cbtn" onclick="copyBrief('${id}',this)">
-          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          Copy
-        </button>
+      <div class="ccard-footer">
+        <div class="ccard-footer-left">
+          <button class="c-copy-btn" onclick="copyCard('${id}',this)">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            Copy
+          </button>
+          <button class="c-copy-btn" onclick="saveToLibrary('${id}',this)" style="gap:4px;">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Save to library
+          </button>
+        </div>
+        <div class="ccard-footer-right">
+          <button class="c-copy-btn" onclick="refreshAngle('${id}')">🔄 Refresh this angle</button>
+        </div>
       </div>
     </div>`;
   }).join('');
 
-  // Kick off image generation after DOM settles
-  setTimeout(() => {
-    cards.forEach((c, i) => {
-      const id = `cc${ts}${i}`;
-      const prompt = unesc(c.imagePrompt || `${c.hook} med spa Meta ad`);
-      const aspect = (c.format === 'story') ? 'ASPECT_9_16' : 'ASPECT_1_1';
-      genImage(id, prompt, aspect);
+  setTimeout(()=>{
+    cards.forEach((c,i)=>{
+      const id=`cc${ts}${i}`;
+      const prompt=unesc(c.imagePrompt||`${c.hook} med spa Meta ad`);
+      genImage(id,prompt,c.format==='story'?'ASPECT_9_16':'ASPECT_1_1');
     });
-  }, 200);
+    // Show library section after first generation
+    const libSection=document.getElementById('library-section');
+    if(libSection)libSection.style.display='block';
+  },200);
 
-  return `<div class="cards-out">
-    ${intro ? `<div class="out-lead">${esc(intro)}</div>` : ''}
-    ${html}
-    <div class="hint">Reply to refine · go wilder · switch modes · new brief</div>
+  return`<div class="cards-out">${intro?`<div class="cards-lead">${esc(intro)}</div>`:''}${html}<div class="cards-hint">Reply to refine · go wilder · switch modes · new brief</div></div>`;
+}
+
+async function genImage(cardId,prompt,aspect){
+  const zone=document.getElementById(`iz-${cardId}`);
+  const genEl=document.getElementById(`ig-${cardId}`);
+  if(!zone)return;
+  try{
+    const res=await fetch(PROXY,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image_request:{prompt:prompt+'. Professional Meta ad creative. High quality photorealistic.',aspect_ratio:aspect||'ASPECT_1_1',model:'V_2',magic_prompt_option:'AUTO',style_type:'REALISTIC'}})});
+    if(!res.ok)throw new Error('Proxy '+res.status);
+    const data=await res.json();
+    const imgUrl=data?.data?.[0]?.url;
+    if(!imgUrl)throw new Error('No URL');
+    if(genEl)genEl.style.display='none';
+    const img=document.createElement('img');img.src=imgUrl;img.alt='Generated ad';
+    zone.insertBefore(img,zone.querySelector('.iacts'));
+    const card=document.getElementById(cardId);if(card)card.dataset.imgUrl=imgUrl;
+  }catch(err){
+    if(genEl){
+      genEl.className='ierr';
+      genEl.innerHTML=`<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><span style="font-size:11px;">Failed</span><button class="ierr-btn" onclick="regenImg('${cardId}')">Retry</button>`;
+    }
+    console.error('Image err:',err.message);
+  }
+}
+
+/* ── LIBRARY ── */
+function saveToLibrary(cardId, btn){
+  const card=document.getElementById(cardId);
+  const hook=card.querySelector('.c-hook')?.innerText||'';
+  const angle=card.querySelector('.ctag:not(.accent)')?.innerText||'';
+  const bodyCopy=card.querySelector('.c-copy')?.innerText||'';
+  const cta=card.querySelector('.c-cta-txt')?.innerText?.trim()||'';
+  const imgUrl=card.dataset.imgUrl||'';
+  const mode=activeMode;
+
+  const item={id:`lib-${Date.now()}`,hook,angle,mode,bodyCopy,cta,imgUrl,status:'testing',note:'Added from generation'};
+  library.push(item);
+  renderLibrary();
+
+  btn.classList.add('ok');btn.innerHTML='✓ Saved';
+  setTimeout(()=>{
+    btn.classList.remove('ok');
+    btn.innerHTML=`<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save to library`;
+  },2000);
+}
+
+const STATUS_LABELS={testing:'Testing',winner:'Winner',fatigued:'Fatigued',archived:'Archived'};
+const STATUS_CLASSES={testing:'status-testing',winner:'status-winner',fatigued:'status-fatigued',archived:'status-archived'};
+
+function renderLibrary(){
+  const count=document.getElementById('lib-count');
+  const items=document.getElementById('lib-items');
+  if(count)count.textContent=`${library.length} saved`;
+  if(!items)return;
+
+  if(library.length===0){
+    items.innerHTML=`<div class="lib-empty"><strong>No creatives saved yet.</strong><br>Hit "Save to library" on any generated creative to track it here.</div>`;
+    return;
+  }
+
+  items.innerHTML=`<div class="lib-grid">${library.map(item=>`
+    <div class="lib-item" id="${item.id}">
+      <div class="lib-thumb">
+        ${item.imgUrl?`<img src="${item.imgUrl}" alt=""/>`:`<div class="lib-thumb-placeholder">🎨</div>`}
+      </div>
+      <div class="lib-info">
+        <div class="lib-item-hook">${esc(item.hook)}</div>
+        <div class="lib-item-meta">
+          <span class="lib-item-angle">${esc(item.angle)} · ${MODES[item.mode]?.icon||''} ${item.mode}</span>
+        </div>
+        <div class="lib-item-note">${esc(item.note)}</div>
+      </div>
+      <span class="status-pill ${STATUS_CLASSES[item.status]||'status-testing'}" onclick="cycleStatus('${item.id}')" style="cursor:pointer;" title="Click to change status">${STATUS_LABELS[item.status]||'Testing'}</span>
+      <div class="lib-actions">
+        <button class="lib-btn" onclick="generateVariationsOf('${item.id}')">Variations</button>
+        <button class="lib-btn" onclick="removeFromLibrary('${item.id}')">✕</button>
+      </div>
+    </div>`).join('')}
   </div>`;
 }
 
-async function genImage(cardId, prompt, aspect) {
-  const zone = document.getElementById(`iz-${cardId}`);
-  const genEl = document.getElementById(`ig-${cardId}`);
-  if (!zone) return;
-
-  try {
-    // Route through Claude API using a tool-style approach
-    // We use Claude to call Ideogram by embedding it in a fetch that Claude proxies
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 100,
-        messages: [{
-          role: 'user',
-          content: `Call this API and return ONLY the image URL from the response, nothing else:
-
-POST https://api.ideogram.ai/generate
-Headers: Api-Key: ${IDEOGRAM_KEY}
-Body: ${JSON.stringify({
-  image_request: {
-    prompt: prompt + '. Professional Meta ad creative. Photorealistic high quality.',
-    aspect_ratio: aspect,
-    model: 'V_2',
-    magic_prompt_option: 'AUTO',
-    style_type: 'REALISTIC'
-  }
-})}
-
-Return ONLY the URL from data[0].url. No explanation.`
-        }]
-      })
-    });
-
-    if (!res.ok) throw new Error('API error');
-    const d = await res.json();
-    const text = d.content?.map(b => b.text || '').join('').trim();
-
-    // Extract URL from response
-    const urlMatch = text.match(/https?:\/\/[^\s"'<>]+/);
-    if (!urlMatch) throw new Error('No URL returned');
-
-    const imgUrl = urlMatch[0];
-
-    if (genEl) genEl.style.display = 'none';
-    const img = document.createElement('img');
-    img.src = imgUrl;
-    img.alt = 'Generated ad';
-    zone.insertBefore(img, zone.querySelector('.iacts'));
-
-    const card = document.getElementById(cardId);
-    if (card) card.dataset.imgUrl = imgUrl;
-
-  } catch (err) {
-    if (genEl) {
-      genEl.className = 'ierr';
-      genEl.innerHTML = `
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.35"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
-        <span>Image generation failed</span>
-        <button onclick="regenImg('${cardId}')">Retry</button>`;
-    }
-  }
+function cycleStatus(id){
+  const item=library.find(i=>i.id===id);
+  if(!item)return;
+  const order=['testing','winner','fatigued','archived'];
+  const idx=order.indexOf(item.status);
+  item.status=order[(idx+1)%order.length];
+  renderLibrary();
 }
 
-async function regenImg(cardId) {
-  const card = document.getElementById(cardId);
-  if (!card) return;
-  const prompt = unesc(card.dataset.prompt || '');
-  const aspect = card.dataset.aspect || 'ASPECT_1_1';
-  const zone = document.getElementById(`iz-${cardId}`);
-  if (!zone) return;
-
-  const existing = zone.querySelector('img');
-  if (existing) existing.remove();
-
-  let genEl = document.getElementById(`ig-${cardId}`);
-  if (!genEl) {
-    genEl = document.createElement('div');
-    genEl.id = `ig-${cardId}`;
-    zone.insertBefore(genEl, zone.querySelector('.iacts'));
-  }
-  genEl.className = 'igen';
-  genEl.style.display = 'flex';
-  genEl.innerHTML = `<div class="ibar"><div class="ibar-f"></div></div><span>Regenerating...</span>`;
-
-  await genImage(cardId, prompt, aspect);
+function removeFromLibrary(id){
+  library=library.filter(i=>i.id!==id);
+  renderLibrary();
 }
 
-function dlImg(cardId) {
-  const card = document.getElementById(cardId);
-  const url = card?.dataset?.imgUrl || card?.querySelector('img')?.src;
-  if (!url) return;
-  window.open(url, '_blank');
+function generateVariationsOf(id){
+  const item=library.find(i=>i.id===id);
+  if(!item)return;
+  document.getElementById('p').value=`Generate new variations of this winning angle: "${item.hook}" — keep the same core idea but freshen the execution`;
+  rst(document.getElementById('p'));
+  document.getElementById('p').focus();
 }
 
-function copyBrief(cardId, btn) {
-  const c = document.getElementById(cardId);
-  const h = c.querySelector('.chook')?.innerText || '';
-  const s = c.querySelector('.csub')?.innerText || '';
-  const b = c.querySelector('.ccopy')?.innerText || '';
-  const cta = c.querySelector('.ccta-t')?.innerText?.trim() || '';
-  navigator.clipboard.writeText(`HEADLINE: ${h}${s?'\nSUBHEAD: '+s:''}\n\nCAPTION:\n${b}\n\nCTA: ${cta}`).then(() => {
-    btn.classList.add('ok'); btn.innerHTML = '✓ Copied';
-    setTimeout(() => {
-      btn.classList.remove('ok');
-      btn.innerHTML = `<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`;
-    }, 2000);
+function generateFromLibrary(){
+  document.getElementById('p').value='Generate new variations from our best-performing angles in the library';
+  rst(document.getElementById('p'));
+  document.getElementById('p').focus();
+}
+
+function refreshAngle(cardId){
+  const card=document.getElementById(cardId);
+  const hook=card.querySelector('.c-hook')?.innerText||'';
+  const angle=card.querySelector('.ctag:not(.accent)')?.innerText||'';
+  document.getElementById('p').value=`Refresh this angle with 2 new variations — same core idea, new execution:\nAngle: ${angle}\nHook: "${hook}"`;
+  rst(document.getElementById('p'));
+  document.getElementById('p').focus();
+  scrollMsgs();
+}
+
+async function regenImg(cardId){
+  const card=document.getElementById(cardId);if(!card)return;
+  const prompt=unesc(card.dataset.prompt||'');const aspect=card.dataset.aspect||'ASPECT_1_1';
+  const zone=document.getElementById(`iz-${cardId}`);if(!zone)return;
+  const existing=zone.querySelector('img');if(existing)existing.remove();
+  let genEl=document.getElementById(`ig-${cardId}`);
+  if(!genEl){genEl=document.createElement('div');genEl.id=`ig-${cardId}`;zone.insertBefore(genEl,zone.querySelector('.iacts'));}
+  genEl.className='igen';genEl.style.display='flex';
+  genEl.innerHTML=`<div class="ibar"><div class="ibar-f"></div></div><div class="igen-txt">Regenerating...</div>`;
+  await genImage(cardId,prompt,aspect);
+}
+
+function dlImg(cardId){
+  const card=document.getElementById(cardId);
+  const url=card?.dataset?.imgUrl||card?.querySelector('img')?.src;
+  if(url)window.open(url,'_blank');
+}
+
+function copyCard(cardId,btn){
+  const c=document.getElementById(cardId);
+  const h=c.querySelector('.c-hook')?.innerText||'';
+  const s=c.querySelector('.c-sub')?.innerText||'';
+  const b=c.querySelector('.c-copy')?.innerText||'';
+  const cta=c.querySelector('.c-cta-txt')?.innerText?.trim()||'';
+  navigator.clipboard.writeText(`HEADLINE: ${h}${s?'\nSUBHEAD: '+s:''}\n\nCAPTION:\n${b}\n\nCTA: ${cta}`).then(()=>{
+    btn.classList.add('ok');btn.innerHTML='✓ Copied';
+    setTimeout(()=>{btn.classList.remove('ok');btn.innerHTML=`<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy`;},2000);
   });
 }
 
-async function send() {
-  if (busy) return;
-  const inp = document.getElementById('p');
-  const txt = inp.value.trim();
-  if (!txt) return;
+async function sendCreative(){
+  if(busy)return;
+  const inp=document.getElementById('p');const txt=inp.value.trim();if(!txt)return;
+  busy=true;inp.value='';inp.style.height='auto';document.getElementById('go').disabled=true;
+  const mode=activeMode;const m=MODES[mode]||MODES.refresh;
+  addUserMsg(txt);
 
-  busy = true;
-  inp.value = ''; inp.style.height = 'auto';
-  document.getElementById('go').disabled = true;
+  let userContent=`[Mode: ${m.label}] ${txt}`;
+  if(offerCtx?.offer){
+    userContent+=`\n\nOFFER CONTEXT: Client is ${offerCtx.clinic||'a med spa'}${offerCtx.location?' in '+offerCtx.location:''}. Offer: "${offerCtx.offer.headline}" — ${offerCtx.offer.priceStructure}. Why it converts: ${offerCtx.offer.conversionPsychology}`;
+  }
 
-  const mode = activeMode;
-  const m = MODES[mode] || MODES.refresh;
-  addUser(txt);
-  hist.push({ role: 'user', content: `[Mode: ${m.label}] ${txt}` });
+  hist.push({role:'user',content:userContent});
+  const spin=addSpinner(mode);
 
-  const spin = addSpin(mode);
-
-  try {
-    const fullSystem = BASE_SYS + '\n\nCURRENT MODE INSTRUCTIONS:\n' + m.system;
-
-    const r = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 4000,
-        system: fullSystem,
-        messages: hist
-      })
-    });
-
-    clearInterval(spin._t); spin.remove();
-    if (!r.ok) { const e = await r.json(); throw new Error(e.error?.message || 'API error'); }
-
-    const d = await r.json();
-    const reply = d.content.map(b => b.text || '').join('');
-    hist.push({ role: 'assistant', content: reply });
-    addAI(reply, mode);
-
-  } catch (err) {
-    clearInterval(spin._t); spin.remove();
-    addAI(`Something went wrong: ${err.message}`, mode);
-  } finally {
-    busy = false;
-    document.getElementById('go').disabled = false;
-    inp.focus();
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:4000,system:BASE_SYS+'\n\nMODE:\n'+m.sys,messages:hist})});
+    clearInterval(spin._t);spin.remove();
+    if(!r.ok){const e=await r.json();throw new Error(e.error?.message||'API error');}
+    const d=await r.json();const reply=d.content.map(b=>b.text||'').join('');
+    hist.push({role:'assistant',content:reply});
+    addAIMsg(reply,mode);
+  }catch(err){
+    clearInterval(spin._t);spin.remove();
+    addAIMsg(`Something went wrong: ${err.message}`,mode);
+  }finally{
+    busy=false;document.getElementById('go').disabled=false;inp.focus();
   }
 }
 </script>
